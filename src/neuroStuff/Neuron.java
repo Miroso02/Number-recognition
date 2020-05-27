@@ -14,4 +14,12 @@ class Neuron
 			weights[i] = (float) (Math.random() - .5); 
 		}
 	}
+	
+	float countValue(float[] inputs)
+	{
+		float result = 0;
+		for (int i = 0; i < nOfWeights; i++)
+			result += weights[i] * inputs[i];
+		return NeuralNetwork.activFunc(result);
+	}
 }

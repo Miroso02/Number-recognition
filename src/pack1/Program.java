@@ -1,4 +1,5 @@
 package pack1;
+import neuroStuff.NeuralNetwork;
 import processing.core.PApplet;
 
 public class Program extends PApplet
@@ -20,6 +21,7 @@ public class Program extends PApplet
 	//--------------------------------------------- Processing part -----------------------------------------------------------------
 	
 	Tile[] tiles = new Tile[N_OF_TILES];
+	NeuralNetwork nn = new NeuralNetwork(N_OF_TILES, 12, 12, 10);
 	
 	public void settings() 
 	{
@@ -32,6 +34,11 @@ public class Program extends PApplet
 		{
 			tiles[i]= new Tile(i % W_IN_TILES, (int) (i / W_IN_TILES)); 
 		}
+		
+		float[] data = new float[N_OF_TILES];
+		for (int i = 0; i < N_OF_TILES; i++)
+			data[i] = .5f;
+		println(nn.countValues(data));
 	}
 	public void draw()
 	{

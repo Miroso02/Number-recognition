@@ -13,6 +13,7 @@ class NeuronLayer
 			throw new IndexOutOfBoundsException("Too few neurons in Neuron Layer");
 		
 		this.values = new float[nOfNeurons];
+		this.prevLayer = prevLayer;
 		this.nOfNeurons = nOfNeurons;
 		
 		neurons = new Neuron[nOfNeurons];
@@ -23,5 +24,11 @@ class NeuronLayer
 				neurons[i] = new Neuron(prevLayer.nOfNeurons);
 			}
 		}
+	}
+	
+	void countValues()
+	{
+		for (int i = 0; i < nOfNeurons; i++)
+			values[i] = neurons[i].countValue(prevLayer.values); 
 	}
 }
