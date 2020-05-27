@@ -24,7 +24,18 @@ public class Vector
 		return this;
 	}
 	
-	public Vector copy(Vector v) 
+	public Vector copy()
+	{
+		return new Vector(this.x, this.y);
+	}
+	
+	public void set(float x, float y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+	
+	public static Vector copy(Vector v) 
 	{
 		return new Vector(v.x, v.y);
 	}

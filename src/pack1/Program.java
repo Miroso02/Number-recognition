@@ -12,6 +12,7 @@ public class Program extends PApplet
 	static final int H_IN_TILES = 32;
 	static final int TILE_SIZE = 30;
 	static final int N_OF_TILES = W_IN_TILES * H_IN_TILES;
+	static final String INPUT_NUMBERS = "1234567890";
 	
 	static void rect(Vector position, float size) 
 	{
@@ -20,8 +21,8 @@ public class Program extends PApplet
 	
 	//--------------------------------------------- Processing part -----------------------------------------------------------------
 	
-	Tile[] tiles = new Tile[N_OF_TILES];
 	NeuralNetwork nn = new NeuralNetwork(N_OF_TILES, 12, 12, 10);
+	TileController tileController;
 	
 	public void settings() 
 	{
@@ -30,22 +31,23 @@ public class Program extends PApplet
 	public void setup() 
 	{
 		noStroke();
-		for (int i = 0; i < N_OF_TILES; i++)
-		{
-			tiles[i]= new Tile(i % W_IN_TILES, (int) (i / W_IN_TILES)); 
-		}
-		
-		float[] data = new float[N_OF_TILES];
-		for (int i = 0; i < N_OF_TILES; i++)
-			data[i] = .5f;
-		println(nn.countValues(data));
+		tileController = new TileController(N_OF_TILES);
 	}
 	public void draw()
 	{
-		for (Tile tile : tiles)
+		tileController.update();
+		
+		if (keyPressed && tileController.isAnyActive())
 		{
-			tile.display();
-			tile.activate();
+			if (INPUT_NUMBERS.indexOf(key) != -1)
+			{
+				int answer = Integer.parseInt("" + key);
+				println(answer);
+				
+				float[] inputs = tileController.getData();
+				println(nn.countValues(inputs));
+				tileController.clear();
+			}
 		}
 	}
 	
