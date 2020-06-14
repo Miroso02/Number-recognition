@@ -1,4 +1,6 @@
 package pack1;
+import java.io.IOException;
+
 import neuroStuff.NeuralNetwork;
 import processing.core.PApplet;
 
@@ -21,7 +23,7 @@ public class Program extends PApplet
 
 	//--------------------------------------------- Processing part -----------------------------------------------------------------
 
-	NeuralNetwork nn = new NeuralNetwork(N_OF_TILES, 12, 12, 10);
+	NeuralNetwork nn;
 	TileController tileController;
 
 	public void settings()
@@ -32,6 +34,15 @@ public class Program extends PApplet
 	{
 		noStroke();
 		tileController = new TileController(N_OF_TILES);
+		nn = new NeuralNetwork(N_OF_TILES, 12, 12, 10);
+		try
+		{
+			nn.saveTo("savedNNs/NN1");
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	public void draw()
 	{

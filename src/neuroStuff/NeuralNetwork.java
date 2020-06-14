@@ -1,11 +1,16 @@
 package neuroStuff;
 
+import java.io.IOException;
+
 public class NeuralNetwork
 {
 	private NeuronLayer[] layers;
 	private NeuronLayer inputLayer;
 	private NeuronLayer outputLayer;
 	private int nOfLayers;
+	private static NNLoader loader = new NNLoader();
+
+	//------------------------------------- Constructor ------------------------------------------------------------------------
 
 	public NeuralNetwork(int ...neuronsInLayer)
 	{
@@ -22,6 +27,8 @@ public class NeuralNetwork
 		}
 		outputLayer = layers[nOfLayers - 1];
 	}
+
+	//-------------------------------- Main methods ----------------------------------------------------------------------------
 
 	public float[] countValues(float[] inputs)
 	{
@@ -54,5 +61,53 @@ public class NeuralNetwork
 	static float dActivFunc(float input)
 	{
 		return (float) (Math.exp(-input) / Math.pow(Math.exp(-input) + 1, 2));
+	}
+
+	//------------------------- Other methods ---------------------------------------------------------------
+
+	public String stringify()
+	{
+		String result = "";
+
+		for (int i = 1; i < nOfLayers; i++)
+		{
+      for (Neuron n : layers[i].neurons)
+			{
+        for (float w : n.weights)
+				{
+          result += w + ",";
+        }
+        result += n.bias + ";";
+      }
+      result += "\n";
+    }
+		return result;
+	}
+
+	//------------------------- Saving / Loading methods -------------------------
+
+	public void saveTo(String fileName)
+	{
+		try
+		{
+			loader.saveTo(fileName, this);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static NeuralNetwork loadFrom(String fileName)
+	{
+		try
+		{
+			return loader.loadFrom(fileName);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
