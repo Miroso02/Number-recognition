@@ -1,9 +1,12 @@
 package neuroStuff;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class NeuralNetwork
+public class NeuralNetwork implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	private NeuronLayer[] layers;
 	private NeuronLayer inputLayer;
 	private NeuronLayer outputLayer;

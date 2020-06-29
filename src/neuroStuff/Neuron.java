@@ -1,7 +1,11 @@
 package neuroStuff;
 
-class Neuron
+import java.io.Serializable;
+
+class Neuron implements Serializable
 {
+	private static final long serialVersionUID = 3L;
+	
 	float[] weights;
 	float bias;
 

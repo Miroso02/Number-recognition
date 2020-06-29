@@ -1,7 +1,11 @@
 package neuroStuff;
 
-class NeuronLayer
+import java.io.Serializable;
+
+class NeuronLayer implements Serializable
 {
+	private static final long serialVersionUID = 2L;
+	
 	Neuron[] neurons;
 	NeuronLayer prevLayer;
 	float[] values;
